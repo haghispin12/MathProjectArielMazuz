@@ -8,19 +8,22 @@
     tools:context=".LoginActivity2">
 
     <EditText
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
-
+        android:hint="enter name"
+        android:textSize = "20dp"
+        android:gravity="center"
         />
 
     <Button
+        android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#B500FF"
         android:gravity="center"
-        android:hint="user name"
         android:text="next"
         android:textColor="@color/white"
         android:textSize="30dp" />

@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         etgar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                viewModel.vEtgar();
+                answer.setText("");
 //                exercise.random3();
 //                num1.setText(exercise.getNum1()+"");
 //                num2.setText(exercise.getNum2()+"");
@@ -54,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
         upto20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                exercise.random2();
-                num1.setText(exercise.getNum1()+"");
-                num2.setText(exercise.getNum2()+"");
+              viewModel.vUp20();
+              answer.setText("");
+              //  exercise.random2();
+              //  num1.setText(exercise.getNum1()+"");
+              //  num2.setText(exercise.getNum2()+"");
             }
         });
 
@@ -64,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
         luachKefel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               exercise.random1();
-                num1.setText(exercise.getNum1()+"");
-                num2.setText(exercise.getNum2()+"");
+               viewModel.vluachKefel();
+               answer.setText("");
+                // exercise.random1();
+               // num1.setText(exercise.getNum1()+"");
+               // num2.setText(exercise.getNum2()+"");
             }
         });
 
