@@ -1,5 +1,6 @@
 package com.example.mathprojectarielmazuz;
 
+import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,21 +31,24 @@ public class MainActivity extends AppCompatActivity {
     private Button save;
     private Button SAU;
     private Exercise exercise;
-    private MainViewModel viewModel;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String userName= getIntent().getStringExtra("name");
+        //String userName = getIntent().getStringExtra("","error");
+
         exercise = new Exercise();
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         etgar = findViewById(R.id.etgar);
         etgar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.vEtgar();
+                mainViewModel.vEtgar();
                 answer.setText("");
 //                exercise.random3();
 //                num1.setText(exercise.getNum1()+"");
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         upto20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              viewModel.vUp20();
+              mainViewModel.vUp20();
               answer.setText("");
               //  exercise.random2();
               //  num1.setText(exercise.getNum1()+"");
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         luachKefel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               viewModel.vluachKefel();
+               mainViewModel.vluachKefel();
                answer.setText("");
                 // exercise.random1();
                // num1.setText(exercise.getNum1()+"");
@@ -81,6 +87,26 @@ public class MainActivity extends AppCompatActivity {
         answer = findViewById(R.id.answer);
         
         check = findViewById(R.id.check);
+
+
+      mainViewModel.vNum1.observe(this, new Observer<Integer>() {
+          @Override
+          public void onChanged(Integer integer) {
+
+          }
+      });
+
+
+       mainViewModel.vNum2.observe(this, new Observer<Integer>() {
+           @Override
+           public void onChanged(Integer integer) {
+
+           }
+       });
+
+
+
+
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
