@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity2 extends AppCompatActivity {
 
-    private EditText userName;
-    private Button next;
-    private Intent intent;
+     EditText userName;
+     Button next;
+     Intent intent;
 
 
     public EditText getUserName() {
@@ -55,13 +55,13 @@ public class LoginActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               // Intent intent = new Intent(LoginActivity2.this,MainActivity.class);
-               // intent = getIntent();
+                String enteredText = userName.getText().toString();
 
-                intent = new Intent(LoginActivity2.this,MainActivity.class);
-                intent.putExtra("name",userName.getText().toString());
+                Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
+                intent.putExtra("name", enteredText);
                 startActivity(intent);
                 finish();
+
             }
         });
 

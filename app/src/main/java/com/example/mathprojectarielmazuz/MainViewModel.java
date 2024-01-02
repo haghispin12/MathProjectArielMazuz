@@ -5,16 +5,38 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class MainViewModel extends ViewModel {
-    MutableLiveData<Integer> vNum1 = new MutableLiveData<>();
-    MutableLiveData<Integer> vNum2 = new MutableLiveData<>();
+    MutableLiveData<Integer> vNum1;
+    MutableLiveData<Integer> vNum2;
     Exercise exercise2;
+    User NUser;
+    MutableLiveData<Integer> vScore;
+
 
 
     public MainViewModel(){
+        NUser = new User();
         exercise2 = new Exercise();
         vNum1 = new MutableLiveData<>();
         vNum2 = new MutableLiveData<>();
+        vScore = new MutableLiveData<>();
 
+    }
+
+
+    public boolean vCheck(String str, int state){
+        boolean bool = exercise2.isGoodAnswer(str);
+        if (bool){
+            if (state == 1){
+                NUser.setScore(NUser.getScore()+5);}
+            else if (state == 2){
+                NUser.setScore(NUser.getScore()+10);}
+            else if (state == 3){
+                NUser.setScore(NUser.getScore()+20);}
+
+        }
+        vScore.setValue(NUser.getScore());
+
+        return bool;
     }
 
 
@@ -37,14 +59,17 @@ public class MainViewModel extends ViewModel {
         vNum2.setValue(exercise2.getNum2());
     }
 
+    public void setUserName(String name){
+        NUser.setUser_Name(name);
+    }
 
+    public User getNUser() {
+        return NUser;
+    }
 
-
-
-
-
-
-
+    public void setNUser(User NUser) {
+        this.NUser = NUser;
+    }
 
     public MutableLiveData<Integer> getvNum1() {
         return vNum1;

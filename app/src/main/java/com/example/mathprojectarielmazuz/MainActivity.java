@@ -20,39 +20,61 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    private Button etgar;
-    private Button upto20;
-    private Button luachKefel;
-    private TextView num1;
-    private TextView xmlX;
-    private TextView num2;
-    private EditText answer;
-    private Button check;
-    private Button save;
-    private Button SAU;
-    private Exercise exercise;
-    private MainViewModel mainViewModel;
+     Button rate;
+     Button etgar;
+     Button upto20;
+     Button luachKefel;
+     TextView num1;
+     TextView xmlX;
+     TextView num2;
+     EditText answer;
+     Button check;
+     Button save;
+     Button SAU;
+     TextView name;
+     TextView XMLscore;
+     MainViewModel mainViewModel;
+     int state = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String userName= getIntent().getStringExtra("name");
-        //String userName = getIntent().getStringExtra("","error");
+        rate = findViewById(R.id.rate);
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        exercise = new Exercise();
+            }
+        });
+
+        name = findViewById(R.id.name);
+        String receivedText = getIntent().getStringExtra("name");
+            // Display the received text
+        name.setText(receivedText);
+
+        XMLscore = findViewById(R.id.XMLscore);
+
+
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        mainViewModel.vScore.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                XMLscore.setText(integer+"");
+            }
+        });
         etgar = findViewById(R.id.etgar);
         etgar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mainViewModel.vEtgar();
+                state = 3;
                 answer.setText("");
-//                exercise.random3();
-//                num1.setText(exercise.getNum1()+"");
-//                num2.setText(exercise.getNum2()+"");
+
+//
 
             }
         });
@@ -62,10 +84,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
               mainViewModel.vUp20();
+              state = 2;
               answer.setText("");
-              //  exercise.random2();
-              //  num1.setText(exercise.getNum1()+"");
-              //  num2.setText(exercise.getNum2()+"");
+
             }
         });
 
@@ -74,10 +95,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                mainViewModel.vluachKefel();
+               state = 1;
                answer.setText("");
-                // exercise.random1();
-               // num1.setText(exercise.getNum1()+"");
-               // num2.setText(exercise.getNum2()+"");
+
             }
         });
 
@@ -86,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
         xmlX = findViewById(R.id.xmlX);
         answer = findViewById(R.id.answer);
         
-        check = findViewById(R.id.check);
+
 
 
       mainViewModel.vNum1.observe(this, new Observer<Integer>() {
           @Override
           public void onChanged(Integer integer) {
-
+              num1.setText(integer+"");
           }
       });
 
@@ -100,17 +120,18 @@ public class MainActivity extends AppCompatActivity {
        mainViewModel.vNum2.observe(this, new Observer<Integer>() {
            @Override
            public void onChanged(Integer integer) {
-
+               num2.setText(integer+"");
            }
        });
 
-
-
-
+        check = findViewById(R.id.check);
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean bool = exercise.isGoodAnswer(answer.getText().toString());
+
+                String str = answer.getText().toString();
+
+                boolean bool = mainViewModel.vCheck(str,state);
                 if (bool)
                     showCheck("Very good");
                 else
@@ -119,6 +140,14 @@ public class MainActivity extends AppCompatActivity {
                 num2.setText("");
                 num1.setText("");
 
+
+
+/*
+                int sum1 = mainViewModel.vNum1.getValue();
+                int sum2 = mainViewModel.vNum2.getValue();
+                String Ans = sum1*sum2+"";
+
+                boolean bool =*/
             }
         });
         
@@ -137,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 
             }
         });
+
+
 
 
     }
